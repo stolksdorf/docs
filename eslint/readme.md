@@ -145,7 +145,7 @@ const myFunc = (source, target, opts={})=>{
 The following rules are auto-magically [fixable](http://eslint.org/docs/user-guide/migrating-from-jscs#--fix).
 
 ##### [`"quotes": ["error", "single"]`](http://eslint.org/docs/rules/quotes), [`"prefer-template": "error"`](http://eslint.org/docs/rules/prefer-template), [`"template-curly-spacing": ["error", "never"]`](http://eslint.org/docs/rules/template-curly-spacing)
-Prefer single quotes, removing extra spacing in template strings, and instead of string concattenation, use template strings.
+Prefer single quotes, removing extra spacing in template strings, and instead of string concatenation, uses template strings.
 
 
 
@@ -158,6 +158,10 @@ When using arrows functions, always surrounding parameters in braces.
 
 ##### [`"semi": ["error", "always"]`]()
 Always have semicolons. Duh.
+
+##### [`"indent": ["error", "tab"]`]()
+Always use tabs for indent. Tabs allow the developer to choose how large of indent they prefer, without changing the source code. It also stops issues of selecting or pasting partial indents. If you want to align code up, use indents to define the block depth, then spaces to align by character.
+
 
 #### whitespacing
 - [`"linebreak-style": ["error", "unix"]`](http://eslint.org/docs/rules/linebreak-style) - Only use unix style linebreaks.
