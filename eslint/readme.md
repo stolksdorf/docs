@@ -26,21 +26,6 @@ Ignored files should be outlined in your `package.json`. Use the `--fix` option 
 ```
 
 
-
-## Warnings
-
-Warnings are reserved for rules in which you can provide a file override. For example, we have an eslint rule to limit the max file length, however we know they will be some files that simply can not be shortened. In that case to resolve the warning you can place a comment at the top of the file disbaling the rule while providing reasoning behind it.
-
-```js
-/* eslint-disable max-lines */
-// This is just a massive config file, no need to break it up
-
-module.exports = {
-	//
-};
-```
-
-
 ## rules
 
 ### errors
@@ -103,9 +88,9 @@ module.exports = {
 #### [`"no-restricted-syntax": ["warning", "ClassDeclaration", "SwitchStatement"]`](http://eslint.org/docs/rules/no-restricted-syntax)
 This rule provides warnings about using Javascript Classes and Switch Cases.
 
-*Classes* in js are just syntax sugar. Many people have tried to implement class-based inheritance by manipulating Javascript's prototype chain. While possible, this can lead to many strange and extreme bugs. The Class syntax was introduced in ES6 to provide a unified way to manipulating the protptype chain to produce class-based inheritance that many programmers are familar with. However it's possible to avoid this problem all together by properly understanding the language and use functional and composition programming techniques. We want to discourage "fighting" the language and not just to use language features just because they are there.
+**Classes** in js are just syntax sugar. Many people have tried to implement class-based inheritance by manipulating Javascript's prototype chain. While possible, this can lead to many strange and extreme bugs. The Class syntax was introduced in ES6 to provide a unified way to manipulating the protptype chain to produce class-based inheritance that many programmers are familar with. However it's possible to avoid this problem all together by properly understanding the language and use functional and composition programming techniques. We want to discourage "fighting" the language and not just to use language features just because they are there.
 
-*Switch Cases* in js were poorly designed. They [not faster](https://stackoverflow.com/questions/8624939/performance-of-if-else-switch-or-map-based-conditioning) than other methods, also each case *must* have a `break;` at then end of it or it will cascade into the next case. This can produce unseens bugs that are _very_ hard to reproduce and track down.
+**Switch Cases** in js were poorly designed. They [not faster](https://stackoverflow.com/questions/8624939/performance-of-if-else-switch-or-map-based-conditioning) than other methods, also each case *must* have a `break;` at then end of it or it will cascade into the next case. This can produce unseens bugs that are _very_ hard to reproduce and track down.
 
 The better approach is to produce an object mapping of your 'cases' and 'results'. This has the added benefit of easily being passed around, dynamically generated, or externalized into a config file if it becomes very large.
 
@@ -124,11 +109,11 @@ window.location.href = hrefMap[id];
 #### [`"max-lines" : ["warning", {"max": 250, "skipComments": true, "skipBlankLines": true}]`](http://eslint.org/docs/rules/max-lines)
 Files provide us with a natural form of encapsulation. Dependacies are declared at the top, and what this file exports are the bottom, almost like mini-APIs. The more focused and concise the functionality of a single file, the easier it is to maintain, improve, and re-use. As the number of lines increase within a file, so does it's complexity and the number of interconnected parts. We've found that around 250 lines is the sweet-spot of file complexity.
 
-Try splitting out common/agnostics functions into a small `utils.js` file. There are always cases where this rule will not apply, so use the ability to provide a single file override and explain why this file is an exception to this rule.
+Try splitting out common/agnostic functions into a small `utils.js` file. There are always cases where this rule will not apply, so use the ability to provide a single file override and explain why this file is an exception to this rule.
 
 
 #### [`"max-params" : ["warning", {"max": 4}]`](http://eslint.org/docs/rules/max-params)
-Having many parameters in a function puts a lot of cognitive weight onto the developer to remember the exact sequecne of params for the function signature. Try using an object-param to capture non-essential/less-important params for the function. This has the added benefit of not breaking your code if you need to remove one of the parameters later.
+Having many parameters in a function puts a lot of cognitive weight onto the developer to remember the exact sequence of params for the function signature. Try using an object-param to capture non-essential/less-important params for the function. This has the added benefit of not breaking your code if you need to remove one of the parameters later.
 
 ```js
 //Bad
@@ -142,7 +127,7 @@ const myFunc = (source, target, opts={})=>{
 
 
 ### fixes
-The following rules are auto-magically [fixable](http://eslint.org/docs/user-guide/migrating-from-jscs#--fix).
+The following rules are auto-magically [fixable](http://eslint.org/docs/user-guide/migrating-from-jscs#--fix). We suggest first commiting your work, then running `eslint --fix` so you can double check the diff before you commit. All of these fixable rules should be safe to execute though.
 
 #### [`"quotes": ["error", "single"]`](http://eslint.org/docs/rules/quotes), [`"prefer-template": "error"`](http://eslint.org/docs/rules/prefer-template), [`"template-curly-spacing": ["error", "never"]`](http://eslint.org/docs/rules/template-curly-spacing)
 Prefer single quotes, removing extra spacing in template strings, and instead of string concatenation, uses template strings.
@@ -169,6 +154,23 @@ Always have semicolons. Duh.
 
 #### [`"indent": ["error", "tab"]`]()
 Always use tabs for indent. Tabs allow the developer to choose how large of indent they prefer, without changing the source code. It also stops issues of selecting or pasting partial indents. If you want to align code up, use indents to define the block depth, then spaces to align by character.
+
+#### [`"key-spacing": ["error", {"multiLine": {"beforeColon": true, "afterColon": true, "align": "colon"}}]`](http://eslint.org/docs/rules/key-spacing)
+Aligns all the colons up for a multiline object with key-value pairs, with a space before and after the colon.
+
+```js
+//bad
+call({
+	foobar: 42,
+	bat:2 * 2
+});
+
+//good
+call({
+	foobar : 42,
+	bat    : 2 * 2
+});
+```
 
 
 #### whitespacing
