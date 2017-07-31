@@ -1,7 +1,7 @@
 # git aliases
 
 
-## `.gitconfig`
+### `.gitconfig`
 ```
 ;Logging
 la   = log --graph --decorate --pretty=oneline --abbrev-commit --all
@@ -47,7 +47,7 @@ jetpack    = "!git rebase --abort"
 
 ### logging
 * `git la` - Lists out a tree-based history of the project
-* `git laa` - Lists out a more detailed tree-like view, showing when each commit was donea nd the author
+* `git laa` - Lists out a more detailed tree-like view, showing when each commit was done and the author
 * `git peeps` - Lists out each contributor and the number of commits they have made
 
 ### basic

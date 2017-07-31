@@ -1,0 +1,100 @@
+{
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "script",
+		"ecmaFeatures": {
+			"jsx": true,
+			"experimentalObjectRestSpread": true
+		}
+	},
+	"plugins": ["react"],
+	"rules" : {
+
+		/** ERRORS **/
+
+		// http://eslint.org/docs/rules/no-new-object
+		//Use {} concise syntax
+		"no-new-object": "error",
+
+		// http://eslint.org/docs/rules/no-array-constructor
+		"no-array-constructor": "error",
+
+		//Obsolete syntax
+		"no-iterator": "error",
+		"no-proto": "error",
+
+		// Please never do this. Super confusing
+		"no-nested-ternary": "error",
+
+		// http://eslint.org/docs/rules/func-style
+		// Declaring functions can lead to global scoping issues
+		"func-style": ["error", "expression", {"allowArrowFunctions": true}],
+
+		// Still allows non-camelCased variable if properties or all caps
+		"camelcase": ["error", {"properties": "never"}],
+
+
+
+		"react/prefer-es6-class": ["error", "never"],
+		"react/jsx-no-bind" : ["error", {"allowArrowFunctions" : true}],
+
+
+
+		/** WARNINGS **/
+		// Warnings can be overridden on a per instance basis
+
+		// We should not be using the class syntax. It's syntax sugar
+		"no-restricted-syntax": ["warning", "ClassDeclaration", "SwitchStatement"],
+
+		//
+		"max-lines" : ["warning", {"max": 250, "skipComments": true, "skipBlankLines": true}],
+		"max-params" : ["warning", {"max": 4}],
+
+
+
+
+		/** FIXES **/
+
+		// http://eslint.org/docs/rules/quotes
+		//We prefer single quotes (fix)
+		"quotes": ["error", "single"],
+
+		// http://eslint.org/docs/rules/prefer-template
+		"prefer-template": "error",
+
+		//Tighten up extra spacing in template string substitutions.
+		"template-curly-spacing": ["error", "never"],
+
+		//Always surround parameters in braces in arrow functions
+		"arrow-parens": ["error", "always"],
+
+		// Always use const and let. `let` should be reserved for values that actually mutate.
+		"no-var": "error",
+		"prefer-const": "error",
+
+		// Aligns on colons in multiline objects
+		"key-spacing": ["error", {
+			"multiLine": {
+				"beforeColon": true,
+				"afterColon": true,
+				"align": "colon"
+			}
+		}],
+
+		// duh
+		"semi": ["error", "always"],
+
+
+		//Whitespacing
+		"linebreak-style": ["error", "unix"],
+		"no-whitespace-before-property": "error",
+		"space-in-parens": ["error", "never"],
+		"comma-spacing": ["error", {"before": false, "after": true}],
+		"object-curly-spacing": ["error", "never"],
+		"keyword-spacing": ["error", {"before": false, "after": false}],
+		"indent": ["error", "tab"],
+
+
+
+	}
+}
