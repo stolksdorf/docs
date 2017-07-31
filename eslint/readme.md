@@ -49,11 +49,11 @@ Functions are first-class citizens in javascript and should be treated as such. 
 
 
 #### [`"camelcase": ["error", {"properties": "never"}]`](http://eslint.org/docs/rules/camelcase)
-Enforces the use of `camelCased`, `CAPS_CASE`, and `TitleCase` for variable names. We are excluding object property checking as their may be cases where you need to modify existing library's variables.
+Enforces the use of `camelCased`, `CAPS_CASE`, and `TitleCase` for variable names. We are excluding object property checking as there may be cases where you need to modify existing library's variables.
 
 
 #### [`"react/prefer-es6-class": ["error", "never"]`](https://github.com/yannickcr/eslint-plugin-react/blob/bd23406f003dc85e06a6fc68b63e81a8a89ec257/docs/rules/prefer-es6-class.md)
-Enforces the use of the `createReactClass({...})` syntax for extending the `React.Component` class. There are many disadvantages to using React classes
+Enforces the use of the `createReactClass({...})` syntax instead of extending the `React.Component` class. There are many disadvantages to using React ES6 classes.
 
 - Methods within them are not [autobound](https://facebook.github.io/react/docs/react-without-es6.html#autobinding) which means you have to explicitly do this within a constructor. Forgetting to do so can lead to incredibly difficult bugs.
 - It promotes the use of Javascript Classes, which are just [syntax sugar](https://stackoverflow.com/questions/36419713/are-es6-classes-just-syntactic-sugar-for-the-prototypal-pattern-in-javascript) and are not actual classes.
