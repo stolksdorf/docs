@@ -36,4 +36,6 @@ No Classes
 ### No Switch statements
 Instead use hash maps or if statments
 
+use `_.result` with switch statements
+
 Use Arrow Functions
