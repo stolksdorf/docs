@@ -16,7 +16,7 @@ You should always default as much of the `data` structure as you can, so there a
 
 Adding numerous `handle*Change` functions to the form will bloat it as more fields are added. Instead we can use a generalized `updateField` function. This takes a string `path` to the specific key within the `data` as well as the value to update it to.
 
-```
+```jsx
 const UserForm = createClass({
 	getDefaultProps : function(){
 		data : {
@@ -50,14 +50,13 @@ const UserForm = createClass({
 		</div>
 	}
 });
-
 ```
 
 ### metadata and validation
 In our previous example, you can see we are duplicating structure with our fields. This tends to happen with forms as they are many common fields. We can write a simple generalized renderer for common fields. To do this we need to structre the information about the fields in our form; We'll do this using *metadata*. This approach still allows us to create more unique fields for complex data within our `render` function, without having to overload our `renderField` function.
 
 
-```
+```jsx
 const metadata = {
 	name : {
 		type : 'text',
@@ -125,7 +124,7 @@ Our validation function will be passed the current data of the field, and return
 
 If using metadata with validation, complete form validation becomes easy.
 
-```
+```jsx
 const metadata = {
 	/* ... */
 }
@@ -168,7 +167,7 @@ Some event has updated information and you would like the new information to be 
 
 In this example, we want our form to have a pending state while we save the information gathered from a `onSubmit`
 
-```
+```jsx
 const UserForm = createClass({
 	getDefaultProps : function(){ /* ... */ },
 	getInitialState : function(){
@@ -206,7 +205,7 @@ Sometimes we'd like the entire form to be refreshed, potentially with new data. 
 
 In this example, if the `selectedUserId` is changed, the form will fully reload with different information.
 
-```
+```jsx
 const Page = createClass({
 	getDefaultProps : function(){
 		users : {}
