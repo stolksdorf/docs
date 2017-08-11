@@ -52,6 +52,9 @@ const UserForm = createClass({
 });
 ```
 
+You don't always have to use the `updateField` paradigm with all inputs. If a field is complex, such as a file upload or image editor, feel free to use standard techniques for writing handlers. This method is just to be used with a bulk simple fields.
+
+
 ### metadata and validation
 In our previous example, you can see we are duplicating structure with our fields. This tends to happen with forms as they are many common fields. We can write a simple generalized renderer for common fields. To do this we need to structre the information about the fields in our form; We'll do this using *metadata*. This approach still allows us to create more unique fields for complex data within our `render` function, without having to overload our `renderField` function.
 
@@ -159,10 +162,7 @@ const UserForm = createClass({
 ```
 
 
-### updating the form
-Someitmes you need to update the form's data even while the user is currently editing it. There are two approaches:
-
-#### partial update
+### partial props update
 Some event has updated information and you would like the new information to be pushed to the form, you would push this new information via props. However you do not want the current data to be overridden, so in this case we create a `componentWillReceiveProps` and write logic how we should update our state via the props being sent.
 
 In this example, we want our form to have a pending state while we save the information gathered from a `onSubmit`
@@ -199,7 +199,7 @@ const UserForm = createClass({
 });
 ```
 
-#### refresh form
+### refresh form
 Sometimes we'd like the entire form to be refreshed, potentially with new data. The easiest way to accomplish this is by changing the `key` in which the form was invoked with. It usually best to use a unique id from the data model for the form key, that way if the user wishes to edit different data models, our form will be reloaded properly.
 
 
@@ -226,4 +226,43 @@ const Page = createClass({
 	}
 });
 ```
+
+### has changes
+Sometimes the parent component of the form needs to know if there are changes in the form. This is most commonly used for providing a warning before the parent component would unmount a form with unsaved changes, or navigating away to another page.
+
+This can be done be using a combination of [`refs`](https://facebook.github.io/react/docs/refs-and-the-dom.html) and component methods.
+
+```jsx
+const UserForm = createClass({
+	getDefaultProps : function(){ /* ... */ },
+	getInitialState : function(){
+		return {
+			data: this.props.data,
+		}
+	},
+	hasChanges : function(){
+		return _.isEqual(this.state.data, this.props.data);
+	},
+	render : function(){ /* ... */ }
+});
+
+const Page = createClass({
+	componentDidMount : function(){
+		window.addEventListener('beforeunload', this.showUnsavedWarning);
+	},
+	componentWillUnmount : function(){
+		window.removeEventListener('beforeunload', this.showUnsavedWarning);
+	},
+	showUnsavedWarning : function(){
+		if(!this.refs.userForm.hasChanges()) return;
+		return `It looks like you have been editing something. If you leave, your changes will be lost.`;
+	},
+	render : function(){
+		return <div className='userPage'>
+			<UserForm ref='userForm' data={user} key={user.id} />
+		</div>
+	}
+});
+```
+
 

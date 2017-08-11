@@ -2,7 +2,7 @@
 
 ### scripts
 
-logs
+logscom
 test
 test:dev
 test:*
@@ -11,3 +11,7 @@ prod
 start
 lint
 dev
+
+
+### other
+`/static` directory for uploading to s3 directly?

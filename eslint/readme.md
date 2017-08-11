@@ -52,12 +52,17 @@ Functions are first-class citizens in javascript and should be treated as such. 
 Enforces the use of `camelCased`, `CAPS_CASE`, and `TitleCase` for variable names. We are excluding object property checking as there may be cases where you need to modify existing library's variables.
 
 
-#### [`"react/prefer-es6-class": ["error", "never"]`](https://github.com/yannickcr/eslint-plugin-react/blob/bd23406f003dc85e06a6fc68b63e81a8a89ec257/docs/rules/prefer-es6-class.md)
+#### [`"react/prefer-es6-class": ["error", "never"]`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md)
 Enforces the use of the `createReactClass({...})` syntax instead of extending the `React.Component` class. There are many disadvantages to using React ES6 classes.
 
 - Methods within them are not [autobound](https://facebook.github.io/react/docs/react-without-es6.html#autobinding) which means you have to explicitly do this within a constructor. Forgetting to do so can lead to incredibly difficult bugs.
 - It promotes the use of Javascript Classes, which are just [syntax sugar](https://stackoverflow.com/questions/36419713/are-es6-classes-just-syntactic-sugar-for-the-prototypal-pattern-in-javascript) and are not actual classes.
 - Default props must be defined _outside_ of the class definition, but initial state is defined _within_ the class constructor.
+
+#### [`"react/no-multi-comp": ": ["error", {"ignoreStateless": true }]`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md)
+
+Enforces one react component per file. Stateless/pure functions are ignored. Multiple stateful components should warrant multiple files.
+
 
 
 
@@ -88,8 +93,10 @@ module.exports = {
 #### [`"no-restricted-syntax": ["warning", "ClassDeclaration", "SwitchStatement"]`](http://eslint.org/docs/rules/no-restricted-syntax)
 This rule provides warnings about using Javascript Classes and Switch Cases.
 
-**Classes** in js are just syntax sugar. Many people have tried to implement class-based inheritance by manipulating Javascript's prototype chain. While possible, this can lead to many strange and extreme bugs. The Class syntax was introduced in ES6 to provide a unified way to manipulating the protptype chain to produce class-based inheritance that many programmers are familar with. However it's possible to avoid this problem all together by properly understanding the language and use functional and composition programming techniques. We want to discourage "fighting" the language and not just to use language features just because they are there.
+**Classes** in js are just syntax sugar. Many people have tried to implement class-based inheritance by manipulating Javascript's prototype chain. While possible, this can lead to many strange and extreme bugs. The Class syntax was introduced in ES6 to provide a unified way to manipulating the protptype chain to produce class-based inheritance that many programmers are familar with. However it's possible to avoid this problem all together by properly understanding the language and use functional and composition programming techniques. We want to discourage "fighting" the language and not just to use language features just because they are there and use them when they make actual sense. If you feel you have a legitiment use-case for using a Class, you can override this rule and provide explanation.
 
+
+//TODO: add link to where we explain this in docs
 **Switch Cases** in js were poorly designed. They [not faster](https://stackoverflow.com/questions/8624939/performance-of-if-else-switch-or-map-based-conditioning) than other methods, also each case *must* have a `break;` at then end of it or it will cascade into the next case. This can produce unseens bugs that are _very_ hard to reproduce and track down.
 
 The better approach is to produce an object mapping of your 'cases' and 'results'. This has the added benefit of easily being passed around, dynamically generated, or externalized into a config file if it becomes very large.
@@ -124,6 +131,9 @@ const myFunc = (source, target, opts={})=>{
 	opts = _.defaults(opts, {useLines:true, shouldSave:true, beFunky:false, maxCount:3})
 }
 ```
+
+#### [`"react/prefer-stateless-function": ["warning"]`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
+There are many performance optimizations done under the hood for pure components, so we should prefer them when possible.
 
 
 ### fixes
