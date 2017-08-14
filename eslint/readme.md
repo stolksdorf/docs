@@ -90,36 +90,17 @@ module.exports = {
 };
 ```
 
-#### [`"no-restricted-syntax": ["warning", "ClassDeclaration", "SwitchStatement"]`](http://eslint.org/docs/rules/no-restricted-syntax)
-This rule provides warnings about using Javascript Classes and Switch Cases.
+#### [`"no-restricted-syntax": ["warn", "ClassDeclaration", "SwitchStatement"]`](http://eslint.org/docs/rules/no-restricted-syntax)
 
-**Classes** in js are just syntax sugar. Many people have tried to implement class-based inheritance by manipulating Javascript's prototype chain. While possible, this can lead to many strange and extreme bugs. The Class syntax was introduced in ES6 to provide a unified way to manipulating the protptype chain to produce class-based inheritance that many programmers are familar with. However it's possible to avoid this problem all together by properly understanding the language and use functional and composition programming techniques. We want to discourage "fighting" the language and not just to use language features just because they are there and use them when they make actual sense. If you feel you have a legitiment use-case for using a Class, you can override this rule and provide explanation.
-
-
-//TODO: add link to where we explain this in docs
-**Switch Cases** in js were poorly designed. They [not faster](https://stackoverflow.com/questions/8624939/performance-of-if-else-switch-or-map-based-conditioning) than other methods, also each case *must* have a `break;` at then end of it or it will cascade into the next case. This can produce unseens bugs that are _very_ hard to reproduce and track down.
-
-The better approach is to produce an object mapping of your 'cases' and 'results'. This has the added benefit of easily being passed around, dynamically generated, or externalized into a config file if it becomes very large.
-
-```js
-const hrefMap = {
-	camelCase : "http://www.thecamelcase.com",
-	jsFiddle  : "http://www.jsfiddle.net",
-	cricInfo  : "http://www.cricinfo.com",
-	apple     : "http://www.apple.com",
-	yahoo     : "http://www.yahoo.com"
-};
-window.location.href = hrefMap[id];
-```
+This rule provides warnings about using [ES6 Classe Syntax](js_style.md#Classes) and [Switch Cases}(js_style.md#Switch_Cases).
 
 
-#### [`"max-lines" : ["warning", {"max": 250, "skipComments": true, "skipBlankLines": true}]`](http://eslint.org/docs/rules/max-lines)
+#### [`"max-lines" : ["warn", {"max": 250, "skipComments": true, "skipBlankLines": true}]`](http://eslint.org/docs/rules/max-lines)
 Files provide us with a natural form of encapsulation. Dependacies are declared at the top, and what this file exports are the bottom, almost like mini-APIs. The more focused and concise the functionality of a single file, the easier it is to maintain, improve, and re-use. As the number of lines increase within a file, so does it's complexity and the number of interconnected parts. We've found that around 250 lines is the sweet-spot of file complexity.
 
 Try splitting out common/agnostic functions into a small `utils.js` file. There are always cases where this rule will not apply, so use the ability to provide a single file override and explain why this file is an exception to this rule.
 
-
-#### [`"max-params" : ["warning", {"max": 4}]`](http://eslint.org/docs/rules/max-params)
+#### [`"max-params" : ["warn", {"max": 4}]`](http://eslint.org/docs/rules/max-params)
 Having many parameters in a function puts a lot of cognitive weight onto the developer to remember the exact sequence of params for the function signature. Try using an object-param to capture non-essential/less-important params for the function. This has the added benefit of not breaking your code if you need to remove one of the parameters later.
 
 ```js
@@ -132,23 +113,22 @@ const myFunc = (source, target, opts={})=>{
 }
 ```
 
-#### [`"react/prefer-stateless-function": ["warning"]`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
+#### [`"react/prefer-stateless-function": ["warn"]`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
 There are many performance optimizations done under the hood for pure components, so we should prefer them when possible.
 
 
-### fixes
+### fixable
 The following rules are auto-magically [fixable](http://eslint.org/docs/user-guide/migrating-from-jscs#--fix). We suggest first commiting your work, then running `eslint --fix` so you can double check the diff before you commit. All of these fixable rules should be safe to execute though.
 
-#### [`"quotes": ["error", "single"]`](http://eslint.org/docs/rules/quotes), [`"prefer-template": "error"`](http://eslint.org/docs/rules/prefer-template), [`"template-curly-spacing": ["error", "never"]`](http://eslint.org/docs/rules/template-curly-spacing)
+#### [`"quotes": ["warn", "single"]`](http://eslint.org/docs/rules/quotes), [`"prefer-template": "warn"`](http://eslint.org/docs/rules/prefer-template), [`"template-curly-spacing": ["warn", "never"]`](http://eslint.org/docs/rules/template-curly-spacing)
 Prefer single quotes, removing extra spacing in template strings, and instead of string concatenation, uses template strings.
 
 
-
-#### [`"no-var": "error"`](https://eslint.org/docs/rules/no-var), [`"prefer-const": "error"`](https://eslint.org/docs/rules/prefer-const)
+#### [`"no-var": "warn"`](https://eslint.org/docs/rules/no-var), [`"prefer-const": "warn"`](https://eslint.org/docs/rules/prefer-const)
 Always use either `const` and `let`. `let` should only be used if the variable is actually being manipulated. This helps the developer track which variables should actually be mutated.
 
 
-#### [`"arrow-parens": ["error", "always"]`]()
+#### [`"arrow-parens": ["warn", "always"]`]()
 When using arrows functions, always surround parameters in braces. This helps make our code more readable, especially when chaining arrow functions together.
 
 ```js
@@ -159,13 +139,13 @@ const currAdd = a=>b=>a+b;
 const currAdd = (a)=>(b)=>a+b;
 ```
 
-#### [`"semi": ["error", "always"]`]()
+#### [`"semi": ["warn", "always"]`]()
 Always have semicolons. Duh.
 
-#### [`"indent": ["error", "tab"]`]()
+#### [`"indent": ["warn", "tab"]`]()
 Always use tabs for indent. Tabs allow the developer to choose how large of indent they prefer, without changing the source code. It also stops issues of selecting or pasting partial indents. If you want to align code up, use indents to define the block depth, then spaces to align by character.
 
-#### [`"key-spacing": ["error", {"multiLine": {"beforeColon": true, "afterColon": true, "align": "colon"}}]`](http://eslint.org/docs/rules/key-spacing)
+#### [`"key-spacing": ["warn", {"multiLine": {"beforeColon": true, "afterColon": true, "align": "colon"}}]`](http://eslint.org/docs/rules/key-spacing)
 Aligns all the colons up for a multiline object with key-value pairs, with a space before and after the colon.
 
 ```js
@@ -183,11 +163,11 @@ call({
 ```
 
 
-#### whitespacing
-- [`"linebreak-style": ["error", "unix"]`](http://eslint.org/docs/rules/linebreak-style) - Only use unix style linebreaks.
-- [`"object-curly-spacing": ["error", "never"]`](http://eslint.org/docs/rules/object-curly-spacing) - Removes spacing between curly braces.
-- [`"no-whitespace-before-property": "error"`](http://eslint.org/docs/rules/no-whitespace-before-property) - Removes whitespace between property accessors
-- [`"space-in-parens": ["error", "never"]`](http://eslint.org/docs/rules/space-in-parens) - Removes spacing between braces
-- [`"comma-spacing": ["error", {"before": false, "after": true}]`](http://eslint.org/docs/rules/comma-spacing) - Always have a space after comma, never before
-- [`"keyword-spacing": ["error", {"before": false, "after": false}]`](http://eslint.org/docs/rules/keyword-spacing) - No spaces inbetween keywords and braces.
+### Whitespace
+- [`"linebreak-style": ["warn", "unix"]`](http://eslint.org/docs/rules/linebreak-style) - Only use unix style linebreaks.
+- [`"object-curly-spacing": ["warn", "never"]`](http://eslint.org/docs/rules/object-curly-spacing) - Removes spacing between curly braces.
+- [`"no-whitespace-before-property": "warn"`](http://eslint.org/docs/rules/no-whitespace-before-property) - Removes whitespace between property accessors
+- [`"space-in-parens": ["warn", "never"]`](http://eslint.org/docs/rules/space-in-parens) - Removes spacing between braces
+- [`"comma-spacing": ["warn", {"before": false, "after": true}]`](http://eslint.org/docs/rules/comma-spacing) - Always have a space after comma, never before
+- [`"keyword-spacing": ["warn", {"before": false, "after": false}]`](http://eslint.org/docs/rules/keyword-spacing) - No spaces inbetween keywords and braces.
 
